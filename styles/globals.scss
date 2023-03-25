@@ -38,7 +38,24 @@ input{
 
 }
 
+.desktop{
+  @media screen and (min-width: $desktopBreakPoint) {
+    display: block;
+  }
+  @media screen and (max-width: calc($desktopBreakPoint - 1px)) {
+    display: none;
+  }
+}
+.mobile{
+  @media screen and (min-width: $desktopBreakPoint) {
+    display: none;
+  }
+  @media screen and (max-width: calc($desktopBreakPoint - 1px)) {
+    display: block;
+  }
+}
 
 @import '../components/botao/botao.scss';
 @import './paginaPublica.scss';
 @import '../components/inputPublico/inputPublico.scss';
+@import '../pages/cadastro/cadastro.scss';
