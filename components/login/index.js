@@ -1,54 +1,74 @@
 import InputPublico from "../inputPublico";
-import imagemEnvelope from '../../public/imagens/envelope.svg';
-import imagemChave from '../../public/imagens/chave.svg';
-import imagemLogo from '../../public/imagens/logo.svg';
+import imagemEnvelope from "../../public/imagens/envelope.svg";
+import imagemChave from "../../public/imagens/chave.svg";
+import imagemLogo from "../../public/imagens/logo.svg";
 import Image from "next/image";
 import Botao from "../botao";
 import Link from "next/link";
 import { use, useState } from "react";
 import { validarEmail, validarSenha } from "@/utils/validadores";
+import UsuarioService from "@/services/UsuarioService";
 
-export default function Login(){
+const usuarioService = new UsuarioService();
 
+export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [estaSubmetendo, setEstaSubmetendo] = useState(false);
   const validarFormulario = () => {
-    return(validarEmail(email) && validarSenha(senha));
-  }
+    return validarEmail(email) && validarSenha(senha);
+  };
+
+  const aoSubmeter = async (e) => {
+    e.preventDefault();
+    if (!validarFormulario()) {
+      return;
+    }
+
+    setEstaSubmetendo(true);
+    try {
+      await usuarioService.login({
+        login: email,
+        senha
+      });
+
+
+    } catch (error) {
+      alert("Erro ao realizar o login. " + error?.response?.data?.erro);
+    }
+
+    setEstaSubmetendo(false);
+  };
 
   return (
     <section className={`paginaLogin paginaPublica`}>
       <div className="logoContainer">
-        <Image src={imagemLogo}
-          alt='logotipo'
-          layout="fill"
-          className="logo"
-        />
+        <Image src={imagemLogo} alt="logotipo" layout="fill" className="logo" />
       </div>
       <div className="conteudoPaginaPublica">
-        <form>
-          <InputPublico 
+        <form onSubmit={aoSubmeter}>
+          <InputPublico
             imagem={imagemEnvelope}
-            texto = 'E-mail'
+            texto="E-mail"
             tipo="email"
-            aoAlterarValor={e => setEmail(e.target.value)}
+            aoAlterarValor={(e) => setEmail(e.target.value)}
             valor={email}
-            mensagemValidacao='O email informado é inválido'
+            mensagemValidacao="O email informado é inválido"
             exibirMensagemValidacao={email && !validarEmail(email)}
           />
-          <InputPublico 
+          <InputPublico
             imagem={imagemChave}
-            texto = 'Senha'
+            texto="Senha"
             tipo="password"
-            aoAlterarValor={e => setSenha(e.target.value)}
+            aoAlterarValor={(e) => setSenha(e.target.value)}
             valor={senha}
-            mensagemValidacao='Precisa ter pelo menos 6 caracteres'
+            mensagemValidacao="Precisa ter pelo menos 6 caracteres"
             exibirMensagemValidacao={senha && !validarSenha(senha)}
           />
-          <Botao 
+          <Botao
             texto="Login"
             tipo="submit"
-            desabilitado={!validarFormulario()}
+            desabilitado={!validarFormulario() || estaSubmetendo}
           />
         </form>
 
@@ -58,5 +78,5 @@ export default function Login(){
         </div>
       </div>
     </section>
-  )
+  );
 }

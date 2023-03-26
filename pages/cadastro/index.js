@@ -15,20 +15,51 @@ import {
   validarSenha,
   validarConfirmacaoSenha,
 } from "@/utils/validadores";
+import UsuarioService from '../../services/UsuarioService'
+
+const usuarioService = new UsuarioService();
 
 export default function cadastro() {
+  
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [confirmacaoSenha, setConfirmacaoSenha] = useState("");
   const [imagem, setImagem] = useState(null);
+  const [estaSubmetendo, setEstaSubmetendo] = useState(false);
   const validarFormulario = () => {
     return (
+      
       validarEmail(email) &&
       validarSenha(senha) &&
       validarNome(nome) &&
       validarConfirmacaoSenha(senha, confirmacaoSenha)
     );
+  };
+  const aoSubmeter = async (e) => {
+    e.preventDefault();
+    if(!validarFormulario()){
+      return;
+    }
+
+    setEstaSubmetendo(true);
+
+    try {
+      const corpoRequisicaoCadastro = new FormData();
+      corpoRequisicaoCadastro.append('nome', nome);
+      corpoRequisicaoCadastro.append('email', email);
+      corpoRequisicaoCadastro.append('senha', senha);
+      console.log(imagem.arquivo)
+      if(imagem?.arquivo){
+        corpoRequisicaoCadastro.append('file', imagem.arquivo);
+      };
+
+      await usuarioService.cadastro(corpoRequisicaoCadastro)
+      alert('Sucesso');
+    } catch (error) {
+      alert("Erro ao cadastrar usuário. " + error?.response?.data?.erro);
+    }
+    setEstaSubmetendo(false);
   };
   return (
     <>
@@ -42,9 +73,10 @@ export default function cadastro() {
           />
         </div>
         <div className="conteudoPaginaPublica">
-          <form>
+          <form onSubmit={aoSubmeter
+          }>
             <UploadImagem
-              imagemPreviewClassName={"avatar avatarPreview"}
+              imagemPreviewClassName="avatar avatarPreview"
               imagemPreview={imagem?.preview || imagemAvatar.src}
               setImagem={setImagem}
             />
@@ -90,7 +122,7 @@ export default function cadastro() {
             <Botao
               texto="Cadastrar"
               tipo="submit"
-              desabilitado={!validarFormulario()}
+              desabilitado={!validarFormulario() || estaSubmetendo}
             />
           </form>
           <div className="rodapePaginaPublica">
