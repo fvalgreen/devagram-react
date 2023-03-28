@@ -11,7 +11,7 @@ import UsuarioService from "@/services/UsuarioService";
 
 const usuarioService = new UsuarioService();
 
-export default function Login() {
+export default function Login({aposAutenticacao}) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [estaSubmetendo, setEstaSubmetendo] = useState(false);
@@ -32,8 +32,11 @@ export default function Login() {
         senha
       });
 
-
+      if(aposAutenticacao){
+        aposAutenticacao();
+      }
     } catch (error) {
+      console.log(error)
       alert("Erro ao realizar o login. " + error?.response?.data?.erro);
     }
 

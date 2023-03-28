@@ -16,6 +16,7 @@ import {
   validarConfirmacaoSenha,
 } from "@/utils/validadores";
 import UsuarioService from '../../services/UsuarioService'
+import { useRouter } from "next/router";
 
 const usuarioService = new UsuarioService();
 
@@ -27,6 +28,8 @@ export default function cadastro() {
   const [confirmacaoSenha, setConfirmacaoSenha] = useState("");
   const [imagem, setImagem] = useState(null);
   const [estaSubmetendo, setEstaSubmetendo] = useState(false);
+  const router = useRouter();
+
   const validarFormulario = () => {
     return (
       
@@ -55,7 +58,13 @@ export default function cadastro() {
       };
 
       await usuarioService.cadastro(corpoRequisicaoCadastro)
-      alert('Sucesso');
+      await usuarioService.login({
+        login: email,
+        senha
+      });
+
+      router.push('/');
+
     } catch (error) {
       alert("Erro ao cadastrar usuário. " + error?.response?.data?.erro);
     }
