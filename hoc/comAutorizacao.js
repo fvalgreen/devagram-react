@@ -1,3 +1,6 @@
+import Cabecalho from "@/components/layout/Cabecalho";
+import Navegacao from "@/components/layout/Navegacao";
+import Rodape from "@/components/layout/Rodape";
 import UsuarioService from "@/services/UsuarioService"
 import { useRouter } from "next/router";
 
@@ -12,7 +15,14 @@ export default function comAutorizacao(Component) {
         return null;
       }
 
-      return <Component {...props} /> 
+      return(
+        <>
+        <Cabecalho />
+        <Component {...props} />
+        <Rodape />
+        </>
+
+      )  
     }
     return null;
   }

@@ -63,7 +63,23 @@ input{
   margin-bottom: 5px;
 }
 
+.barraNavegacao{
+  ul {
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin: 10px 0;
+    li{
+      list-style: none;
+      cursor: pointer;
+    }
+  }
+}
+
+
 @import '../components/botao/botao.scss';
 @import './paginaPublica.scss';
 @import '../components/inputPublico/inputPublico.scss';
+@import '../components/layout/cabecalho.scss';
+@import '../components/layout/rodape.scss';
 @import '../pages/cadastro/cadastro.scss';
