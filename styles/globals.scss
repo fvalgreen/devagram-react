@@ -76,6 +76,10 @@ input{
   }
 }
 
+strong{
+  font-family: $fontBold;
+}
+
 
 @import '../components/botao/botao.scss';
 @import './paginaPublica.scss';
