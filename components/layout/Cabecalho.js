@@ -1,51 +1,53 @@
+import UsuarioService from "@/services/UsuarioService";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import logoHorizontal from "../../public/imagens/logoHorizontal.svg";
 import imagemLupa from "../../public/imagens/lupa.svg";
 import Navegacao from "./Navegacao";
 import Resultadopesquisa from "./ResultadoPesquisa";
 
+const usuarioService = new UsuarioService();
+
 export default function Cabecalho() {
   const [resultadoPesquisa, setResultadoPesquisa] = useState([]);
-  const [termoPesquisado, setTermoPesquisado] = useState([]);
+  const [termoPesquisado, setTermoPesquisado] = useState("");
+  const router = useRouter();
 
-  const aoPesquisar = (e) => {
+  const aoPesquisar = async (e) => {
     setTermoPesquisado(e.target.value);
     setResultadoPesquisa([]);
-    if (termoPesquisado.length < 3) {      
+    if (termoPesquisado.length < 3) {
       return;
     }
-    setResultadoPesquisa([
-      {
-        avatar: '',
-        nome: 'Felipe',
-        email: 'felipe@gmail.com',
-        _id: '1234565',
-      },
-      {
-        avatar: '',
-        nome: 'João',
-        email: 'joao@gmail.com',
-        _id: '1362455',
-      },
-      {
-        avatar: '',
-        nome: 'Marcos',
-        email: 'marcos@gmail.com',
-        _id: '6123455',
-      },
-    ]);
+
+    try {
+      const { data } = await usuarioService.pesquisar(termoPesquisado);
+      setResultadoPesquisa(data);
+    } catch (e) {
+      console.log("Erro ao pesquisar usuário. " + error?.response?.data?.erro);
+    }
   };
 
   const aoClicarResultadoPesquisa = (id) => {
-    console.log("Ao CLicar no Resultado da Pesquisa", {id});
+    setTermoPesquisado("");
+    setResultadoPesquisa([]);
+    router.push(`/perfil/${id}`);
   };
 
+  const redirecionarParaHome = () => {
+    router.push('/');
+  }
   return (
     <header className="cabecalhoPrincipal ">
       <div className="conteudoCabecalhoPrincipal">
         <div className="logoCabecalhoPrincipal">
-          <Image src={logoHorizontal} alt="Logo Devagram" layout="fill" />
+          <Image 
+          onClick={redirecionarParaHome}
+          src={logoHorizontal} 
+          alt="Logo Devagram" 
+          layout="fill" 
+          />
         </div>
         <div className="barraPesquisa">
           <div className="containerImagemLupa">
