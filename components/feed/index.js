@@ -14,7 +14,7 @@ export function Feed({ usuarioLogado }) {
           avatar: null,
         },
         fotoDoPost: "https://s2.glbimg.com/_fi6Z5P7AGZya-fdftAhZnCdbnw=/0x0:1024x1024/430x432/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2023/e/8/AoMju0TPWBvwkfwj2BXA/1.jpg",
-        descricao: "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque ",
+        descricao: "At vero eos et accusamus emus qui blanditiis praesentium voluptatum deleniti atque ",
         curtidas: [],
         comentarios: [
           {
@@ -54,7 +54,11 @@ export function Feed({ usuarioLogado }) {
   return (
     <div className="feedContainer largura30pctDesktop">
       {listaDePostagens.map((dadosPostagem) => (
-        <Postagem key={dadosPostagem.id} {...dadosPostagem} />
+        <Postagem 
+          key={dadosPostagem.id} 
+          {...dadosPostagem} 
+          usuarioLogado={usuarioLogado}
+        />
       ))}
     </div>
   );

@@ -5,13 +5,37 @@ import imgCurtir from "../../public/imagens/curtir.svg"
 import imgCurtido from "../../public/imagens/curtido.svg"
 import imgComentarioAtivo from "../../public/imagens/comentarioAtivo.svg"
 import imgComentarioCinza from "../../public/imagens/comentarioCinza.svg"
+import { useState } from "react";
+import { FazerComentario } from "./FazerComentario";
+
+const tamanhoLimiteDescricao = 90;
 
 export default function Postagem({
   usuario,
   fotoDoPost,
   descricao,
-  comentarios
+  comentarios,
+  usuarioLogado
 }){
+  const [deveExibirSecaoParaComentar, setDeveExibirSecaoparaComentar] = useState(false);
+  const [tamanhoAtualDaDescricao, setTamanhoAtualDaDescricao] = useState(tamanhoLimiteDescricao);
+
+  const descricaoMaiorQueLimite = () => {
+    return descricao.length > tamanhoAtualDaDescricao;
+  };
+
+  const exibirDescricaoCompleta = () => {
+    setTamanhoAtualDaDescricao(Number.MAX_SAFE_INTEGER);
+  };
+
+  const obterDescricao = () => {
+    let mensagem = descricao.substring(0, tamanhoAtualDaDescricao);
+    if(descricaoMaiorQueLimite()){
+      mensagem += '...'
+    }
+    return mensagem;
+  }
+
   return(
     <div className="postagem">
       <Link href={`/perfil/${usuario.id}`}>
@@ -41,7 +65,7 @@ export default function Postagem({
             alt='icone comentar'
             width={15}
             height={15}
-            onClick={() => console.log('comentar')}
+            onClick={() => setDeveExibirSecaoparaComentar(!deveExibirSecaoParaComentar)}
           />
           <span className="quantidadeCurtidas span">
             Curtido por <strong>25 pessoas</strong>
@@ -50,7 +74,16 @@ export default function Postagem({
         <div className="descricaoDaPostagem">
           <strong className="nomeUsuario">{usuario.nome}</strong>
           <p className="descricao">
-            {descricao}
+            {obterDescricao()}
+            {
+              descricaoMaiorQueLimite() && (
+                <span 
+                onClick={exibirDescricaoCompleta}
+                className="exibirDescricaoCompleta">
+                  mais
+                </span>
+              )
+            }
           </p>
         </div>
 
@@ -65,6 +98,11 @@ export default function Postagem({
         ))}
       </div>
       </div>
+      {deveExibirSecaoParaComentar && 
+        <FazerComentario 
+          usuarioLogado={usuarioLogado}
+        />
+      }
     </div>
   )
 }
