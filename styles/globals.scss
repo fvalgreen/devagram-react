@@ -18,7 +18,7 @@ html, body, #__next{
 }
 
 .oculto {
-  display: none;
+  display: none !important;
 }
 
 input{
@@ -36,6 +36,10 @@ input{
     color: $cinza2;
   }
 
+}
+
+a {
+  text-decoration: none;
 }
 
 .desktop{
@@ -80,6 +84,20 @@ strong{
   font-family: $fontBold;
 }
 
+body{
+  @media screen and (min-width: $desktopBreakPoint) {
+    background-color: $cinza5;
+    background-image: url('../public/imagens/textura.svg');
+
+  }
+}
+
+.largura30pctDesktop {
+  @media screen and (min-width: $desktopBreakPoint) {
+    width: 35%;
+    margin: auto;
+  }
+}
 
 @import '../components/botao/botao.scss';
 @import './paginaPublica.scss';
@@ -87,3 +105,4 @@ strong{
 @import '../components/layout/cabecalho.scss';
 @import '../components/layout/rodape.scss';
 @import '../pages/cadastro/cadastro.scss';
+@import '../components/feed/feed.scss'
