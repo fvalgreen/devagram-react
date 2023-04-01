@@ -16,4 +16,8 @@ export default class FeedService extends HttpService{
     });
   }
 
+  async alterarCurtida(idPostagem){
+    return this.put(`/like?id=${idPostagem}`);
+  }
+
 }
