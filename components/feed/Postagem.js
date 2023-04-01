@@ -7,16 +7,20 @@ import imgComentarioAtivo from "../../public/imagens/comentarioAtivo.svg"
 import imgComentarioCinza from "../../public/imagens/comentarioCinza.svg"
 import { useState } from "react";
 import { FazerComentario } from "./FazerComentario";
+import FeedService from "@/services/FeedService";
 
 const tamanhoLimiteDescricao = 90;
+const feedService = new FeedService();
 
 export default function Postagem({
+  id,
   usuario,
   fotoDoPost,
   descricao,
   comentarios,
   usuarioLogado
 }){
+  const [comentariosDaPostagem, setComentariosDaPostagem] = useState(comentarios);
   const [deveExibirSecaoParaComentar, setDeveExibirSecaoparaComentar] = useState(false);
   const [tamanhoAtualDaDescricao, setTamanhoAtualDaDescricao] = useState(tamanhoLimiteDescricao);
 
@@ -34,6 +38,35 @@ export default function Postagem({
       mensagem += '...'
     }
     return mensagem;
+  }
+
+  const obterImagemComentario = () => {
+    return deveExibirSecaoParaComentar
+      ? imgComentarioAtivo
+      : imgComentarioCinza;
+  }
+
+  const comentar = async (comentario) => {
+    console.log('fazer comentario')
+    
+    try {
+      await feedService.adicionarComentario(id, comentario);
+      setDeveExibirSecaoparaComentar(false);
+      setComentariosDaPostagem([
+        ...comentariosDaPostagem,
+        {
+          nome: usuarioLogado.nome,
+          mensagem: comentario
+        }
+      ]);
+      
+    } catch (e) {
+      console.log('Erro ao fazer comentário' + (e?.response?.data?.erro) || '');
+      
+    }
+    
+    
+    
   }
 
   return(
@@ -61,7 +94,7 @@ export default function Postagem({
           />
           <Image 
             className="span"
-            src={imgComentarioCinza}
+            src={obterImagemComentario()}
             alt='icone comentar'
             width={15}
             height={15}
@@ -89,7 +122,7 @@ export default function Postagem({
 
       <div className="comentariosDaPublicacao">
        
-        {comentarios.map((comentario, i) => (
+        {comentariosDaPostagem.map((comentario, i) => (
           <div className="comentario" key={i}>
             
             <strong className="nomeUsuario">{comentario.nome}</strong>
@@ -100,6 +133,7 @@ export default function Postagem({
       </div>
       {deveExibirSecaoParaComentar && 
         <FazerComentario 
+          comentar={comentar}
           usuarioLogado={usuarioLogado}
         />
       }

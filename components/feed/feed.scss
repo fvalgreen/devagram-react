@@ -96,5 +96,30 @@
 
   @media screen and (min-width: $desktopBreakPoint) {
     padding-top: 8px;
+
+    .postagem {
+      .avatar {
+        width: 40px;
+        height: 40px;
+      }
+      .rodapeDaPostagem{
+        .acoesDaPostagem{
+          > .span {
+            cursor: pointer;
+          }
+        }
+      }
+      .containerFazerComentario {
+        margin-top: 12px;
+        .btnPublicacao {
+          background-color: transparent;
+          color: $corPrimaria2;
+          outline: none;
+          border: none;          
+          font-size: 12px;
+          cursor: pointer;
+        }
+      }
+    }
   }
 }
