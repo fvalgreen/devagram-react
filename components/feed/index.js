@@ -4,7 +4,7 @@ import FeedService from "@/services/FeedService";
 
 const feedService = new FeedService();
 
-export function Feed({ usuarioLogado }) {
+export default function Feed({ usuarioLogado }) {
   const [listaDePostagens, setListaDePostagens] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
