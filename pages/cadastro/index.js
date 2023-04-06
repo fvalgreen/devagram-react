@@ -52,7 +52,7 @@ export default function cadastro() {
       corpoRequisicaoCadastro.append('nome', nome);
       corpoRequisicaoCadastro.append('email', email);
       corpoRequisicaoCadastro.append('senha', senha);
-      console.log(imagem.arquivo)
+      
       if(imagem?.arquivo){
         corpoRequisicaoCadastro.append('file', imagem.arquivo);
       };

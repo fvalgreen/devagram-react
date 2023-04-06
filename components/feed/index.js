@@ -7,7 +7,9 @@ const feedService = new FeedService();
 export default function Feed({ usuarioLogado, idUsuario }) {
   const [listaDePostagens, setListaDePostagens] = useState([]);
   useEffect(() => {
+    
     const fetchData = async () => {
+      setListaDePostagens([]);
       const { data } = await feedService.carregarPostagens(idUsuario);
 
       if (data.length > 0) {
