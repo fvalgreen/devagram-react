@@ -1,6 +1,7 @@
 .paginaPerfil{
   .cabecalhoPerfil{
     background-color: $branco;
+    
     .statusPerfil{
       display: flex;
       align-items: center;
@@ -10,7 +11,7 @@
         width: 85px;
         height: 85px;
         margin-right: 24px;    
-        border: 2px solid ;            
+                   
       }
       .informacoesPerfil{
         flex: 1;
@@ -44,5 +45,34 @@
         }
       }
     }
+  }
+  @media screen and (min-width: $desktopBreakPoint) {
+    .cabecalhoPerfil{
+      .cabecalhoComAcoes{
+        > img {
+          display: none;
+        }
+      }
+      .bordaCabecalhoPerfil{
+        margin: 0 auto;
+        border: none;
+        background-color: $cinza1;
+        height: 0.5px;
+        width: 90%;
+      }
+      .statusPerfil{
+        .avatar{
+          width: 90px;
+          height: 90px;
+        }
+        .informacoesPerfil{
+          .btn{
+            padding: 8px;
+          }
+        }
+      }
+      
+    }
+    
   }
 }

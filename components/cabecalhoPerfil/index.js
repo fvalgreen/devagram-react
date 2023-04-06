@@ -12,6 +12,7 @@ export default function CabecalhoPerfil({
           iconeEsquerda={imgSetaEsquerda}
           titulo={usuario.nome}
         />
+      <hr className="bordaCabecalhoPerfil"/>
       <div className="statusPerfil">
         <Avatar src={usuario.avatar}/>
         <div className="informacoesPerfil">
