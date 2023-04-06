@@ -1,7 +1,13 @@
 .paginaPerfil{
   .cabecalhoPerfil{
     background-color: $branco;
-    
+    .bordaCabecalhoPerfil{
+      margin: 0;
+      border: none;
+      background-color: $cinza1;
+      height: 0.5px;
+      
+    }
     .statusPerfil{
       display: flex;
       align-items: center;
@@ -55,9 +61,7 @@
       }
       .bordaCabecalhoPerfil{
         margin: 0 auto;
-        border: none;
-        background-color: $cinza1;
-        height: 0.5px;
+        
         width: 90%;
       }
       .statusPerfil{

@@ -18,15 +18,15 @@ export default function CabecalhoPerfil({
         <div className="informacoesPerfil">
           <div className="statusContainer">
             <div className="status">
-              <strong>15</strong>
+              <strong>{usuario.publicacoes}</strong>
               <span>Publicações</span>
             </div>
             <div className="status">
-              <strong>105</strong>
+              <strong>{usuario.seguidores}</strong>
               <span>Seguidores</span>
             </div>
             <div className="status">
-              <strong>58</strong>
+              <strong>{usuario.seguindo}</strong>
               <span>Seguindo</span>
             </div>
           </div>

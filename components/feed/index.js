@@ -4,36 +4,43 @@ import FeedService from "@/services/FeedService";
 
 const feedService = new FeedService();
 
-export default function Feed({ usuarioLogado }) {
+export default function Feed({ usuarioLogado, idUsuario }) {
   const [listaDePostagens, setListaDePostagens] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await feedService.carregarPostagens(usuarioLogado);
+      const { data } = await feedService.carregarPostagens(idUsuario);
+      
+      if(data.length > 0){
 
-      const postagensFormatadas = data.result.map((postagem) => ({
-        id: postagem._id,
-        usuario: {
-          id: postagem.idUsuario,
-          nome: postagem.usuario.nome,
-          avatar: postagem.usuario.avatar,
-        },
-        fotoDoPost: postagem.foto,
-        descricao: postagem.descricao,
-        curtidas: postagem.likes,
-        comentarios: postagem.comentarios.map((c) => ({
-          nome: c.nome,
-          mensagem: c.comentario,
-        })),
-      }));
+        const postagensFormatadas = data.map((postagem) => ({
+          id: postagem._id,
+          usuario: {
+            id: postagem.idUsuario,
+            nome: postagem.usuario.nome,
+            avatar: postagem.usuario.avatar,
+          },
+          fotoDoPost: postagem.foto,
+          descricao: postagem.descricao,
+          curtidas: postagem.likes,
+          comentarios: postagem.comentarios.map((c) => ({
+            nome: c.nome,
+            mensagem: c.comentario,
+          })),
+        }));
 
-      setListaDePostagens(postagensFormatadas);
-    };
+  
+        setListaDePostagens(postagensFormatadas);
+  
+      }else{setListaDePostagens([])};
+      }
+
     fetchData();
-  }, [usuarioLogado]);
+  }, [idUsuario]);
 
   return (
     <div className="feedContainer largura30pctDesktop">
-      {listaDePostagens.map((dadosPostagem) => (
+      {console.log(listaDePostagens)}{
+      listaDePostagens.map((dadosPostagem) => (
         <Postagem
           key={dadosPostagem.id}
           {...dadosPostagem}

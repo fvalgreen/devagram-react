@@ -27,6 +27,10 @@ export default class UsuarioService extends HttpService {
     return this.get('/pesquisa?filtro=' + termoPesquisado);
   }
 
+  async obterPerfil(idUsuario) {
+    return this.get('/pesquisa?id=' + idUsuario)
+  }
+
   obterInformacoesUsuarioLogado() {
     return {
       id: localStorage.getItem('id'),
