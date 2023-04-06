@@ -2,13 +2,7 @@
   .cabecalhoPerfil{
     background-color: $branco;
     
-    .bordaCabecalhoPerfil{
-      margin: 0;
-      border: none;
-      background-color: $cinza1;
-      height: 0.5px;
-      
-    }
+    
     .statusPerfil{
       display: flex;
       align-items: center;
@@ -60,11 +54,7 @@
           display: none;
         }
       }
-      .bordaCabecalhoPerfil{
-        margin: 0 auto;
-        
-        width: 90%;
-      }
+      
       .statusPerfil{
         .avatar{
           width: 90px;
@@ -79,5 +69,59 @@
       
     }
     
+  }
+}
+.paginaEditarPerfil{
+  background-color: $branco;
+  .conteudoPaginaEditarPerfil{
+    .edicaoAvatar{
+      margin: 16px 0;
+      text-align: center;
+      .avatar{
+        width: 90px;
+        height: 90px;
+        margin-bottom: 8px;
+      }
+  
+      span{
+        font-size: 12px;
+        color: $corPrimaria2;
+        text-decoration: underline;
+      }
+    }
+    .edicaoNome{
+      margin: 16px 0;
+      display: flex;
+      align-items: center;
+      padding: 0px 16px;
+      
+      label {
+        color: $cinza3;
+      }
+      input{
+        flex: 1;
+        border: none;
+        outline: none;
+        padding: 0 16px;
+        color: $cinza4;
+      }
+    }
+  }
+  @media screen and (min-width: $desktopBreakPoint) {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    .conteudoPaginaEditarPerfil{
+      flex: 1;
+      .edicaoAvatar{
+        .avatar{
+          width: 120px;
+          height: 120px;
+        }
+        span{
+          font-size: 14px;
+        }
+      }
+    }
   }
 }

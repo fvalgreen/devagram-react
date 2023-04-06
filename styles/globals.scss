@@ -1,12 +1,14 @@
-@import 'variaveis.scss';
-@import '../public/fonts/fonts.scss';
+@import "variaveis.scss";
+@import "../public/fonts/fonts.scss";
 
 * {
   font-family: $fontRegular;
   font-size: 14px;
 }
 
-html, body, #__next{
+html,
+body,
+#__next {
   height: 100%;
   width: 100%;
   margin: 0;
@@ -21,28 +23,27 @@ html, body, #__next{
   display: none !important;
 }
 
-input{
-  &::placeholder{
+input {
+  &::placeholder {
     /* Funciona no Chrome, Opera, Safari, Firefox*/
     color: $cinza2;
     opacity: 1;
   }
-  &:-ms-input-placeholder{
+  &:-ms-input-placeholder {
     /* ie 10-11 */
     color: $cinza2;
   }
-  &::-ms-input-placeholder{
+  &::-ms-input-placeholder {
     /* Edge */
     color: $cinza2;
   }
-
 }
 
 a {
   text-decoration: none;
 }
 
-.desktop{
+.desktop {
   @media screen and (min-width: $desktopBreakPoint) {
     display: block;
   }
@@ -50,7 +51,7 @@ a {
     display: none;
   }
 }
-.mobile{
+.mobile {
   @media screen and (min-width: $desktopBreakPoint) {
     display: none;
   }
@@ -59,7 +60,7 @@ a {
   }
 }
 
-.mensagemValidacao{
+.mensagemValidacao {
   display: block;
   color: $vermelho;
   font-size: 90%;
@@ -67,28 +68,27 @@ a {
   margin-bottom: 5px;
 }
 
-.barraNavegacao{
+.barraNavegacao {
   ul {
     display: flex;
     justify-content: space-around;
     padding: 0;
     margin: 10px 0;
-    li{
+    li {
       list-style: none;
       cursor: pointer;
     }
   }
 }
 
-strong{
+strong {
   font-family: $fontBold;
 }
 
-body{
+body {
   @media screen and (min-width: $desktopBreakPoint) {
     background-color: $cinza5;
-    background-image: url('../public/imagens/textura.svg');
-
+    background-image: url("../public/imagens/textura.svg");
   }
 }
 
@@ -99,12 +99,23 @@ body{
   }
 }
 
-@import '../components/botao/botao.scss';
-@import './paginaPublica.scss';
-@import '../components/inputPublico/inputPublico.scss';
-@import '../components/layout/cabecalho.scss';
-@import '../components/layout/rodape.scss';
-@import '../pages/cadastro/cadastro.scss';
-@import '../pages/perfil/perfil.scss';
-@import '../components/feed/feed.scss';
-@import '../components/cabecalhoComAcoes/cabecalhoComAcoes.scss';
+.linhaDivisoria {
+  margin: 0;
+  border: none;
+  background-color: $cinza1;
+  height: 0.5px;
+  @media screen and (min-width: $desktopBreakPoint) {
+    margin: 0 auto;
+    width: 94%;
+  }
+}
+
+@import "../components/botao/botao.scss";
+@import "./paginaPublica.scss";
+@import "../components/inputPublico/inputPublico.scss";
+@import "../components/layout/cabecalho.scss";
+@import "../components/layout/rodape.scss";
+@import "../pages/cadastro/cadastro.scss";
+@import "../pages/perfil/perfil.scss";
+@import "../components/feed/feed.scss";
+@import "../components/cabecalhoComAcoes/cabecalhoComAcoes.scss";
