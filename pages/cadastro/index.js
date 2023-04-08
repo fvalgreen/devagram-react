@@ -20,7 +20,7 @@ import { useRouter } from "next/router";
 
 const usuarioService = new UsuarioService();
 
-export default function cadastro() {
+export default function Cadastro() {
   
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
