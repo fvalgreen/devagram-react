@@ -2,6 +2,10 @@
 
 Projeto desenvolvido para estudo do React.js e Next na formação da Devaria 2023.
 
+## Implementação na Vercel
+
+[Devagram](https://devagram-react-nine.vercel.app/)
+
 ### Tecnologias Utilizadas
 
 - React.js 18.2.8
@@ -16,3 +20,4 @@ Projeto desenvolvido para estudo do React.js e Next na formação da Devaria 202
 1. Configuraar as variáveis de ambiente no arquivo `.env.local`
 1. Instalar as dependencias do projeto `npm i`
 1. Executar o comando `npm run dev` no terminal para subir a aplicação 
+
