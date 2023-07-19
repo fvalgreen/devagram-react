@@ -56,4 +56,8 @@ export default class UsuarioService extends DevagramApiService {
     }
   }
 
+  async obterNotificacoes() {
+    return this.get('/notificacoes');
+  }
+
 }

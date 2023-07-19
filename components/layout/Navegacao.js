@@ -4,9 +4,12 @@ import imagemPublicacaoCinza from "../../public/imagens/publicacaoCinza.svg";
 import imagemPublicacaoAtivo from "../../public/imagens/publicacaoAtivo.svg";
 import imagemUsuarioCinza from "../../public/imagens/usuarioCinza.svg";
 import imagemUsuarioAtivo from "../../public/imagens/usuarioAtivo.svg";
+import notificacaoCinza from '../../public/imagens/notifications.svg';
+import notificacaoAtivo from '../../public/imagens/notifications-active.svg';
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import UsuarioService from "@/services/UsuarioService";
 
 
 const mapaDeRotas = {
@@ -24,16 +27,35 @@ const mapaDeRotas = {
     imagemAtivo: imagemUsuarioAtivo,
     rotasAtivacao: ['/perfil/eu', '/perfil/editar'],
     imagemPadrao: imagemUsuarioCinza
+  },
+  notificacao: {
+    imagemAtivo: notificacaoAtivo,
+    rotasAtivacao: ['/notificacoes'],
+    imagemPadrao: notificacaoCinza
   }
 }
 
+const usuarioService = new UsuarioService();
+
 export default function Navegacao({ className }) {
   const [rotaAtiva, setRotaAtiva] = useState('home');
+  const [notificacao, setNotificacao] = useState();
+  const [iconeNotificacao, setIconeNotificacao] = useState(notificacaoCinza)
   const router = useRouter();
 
   useEffect(() => {
     definirRotaAtiva();
   }, [router.asPath])
+
+  const obterNotificacoes = async () => {
+    const notificacoes = await usuarioService.obterNotificacoes()
+    setNotificacao(notificacoes.data);
+    if(notificacoes.data.novas.length > 0){
+      setIconeNotificacao(notificacaoAtivo);
+    }else{
+      setIconeNotificacao(notificacaoCinza);
+    }    
+  };
 
   const definirRotaAtiva = () => {
     const chavesDoMapaDeRotas = Object.keys(mapaDeRotas);
@@ -48,6 +70,7 @@ export default function Navegacao({ className }) {
       setRotaAtiva(chavesDoMapaDeRotas[indiceAtivo]);
     }
   };
+
   
   const obterImagem = (nomeRota) => {
     const rotaAtivada = mapaDeRotas[nomeRota];
@@ -84,6 +107,12 @@ export default function Navegacao({ className }) {
         <li onClick={() => {aoClicarNoIcone('perfil')}}><Image
             src={obterImagem('perfil')}
             alt="Icone usuário cinza"
+            width={20}
+            height={20}
+          /></li>
+        <li onClick={() => {aoClicarNoIcone('notificacao')}}><Image
+            src={iconeNotificacao}
+            alt="Icone notificação cinza"
             width={20}
             height={20}
           /></li>
